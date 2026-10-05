@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Një pyetje shumë e rëndësishme 🍽️</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffe7d1, #fff5e6, #e7f9ff);
+}
+
+/* Background bubbles */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .5;
+    animation: float 7s ease-in-out infinite;
+}
+
+body::before {
+    background: #ffb6c1;
+    top: -100px;
+    left: -100px;
+}
+
+body::after {
+    background: #87cefa;
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(30px,20px);
+    }
+}
+
+
+/* Main card */
+
+.card {
+    position: relative;
+    z-index: 10;
+    width: min(92%, 500px);
+    padding: 38px 25px;
+    text-align: center;
+
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(15px);
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.15);
+
+    animation: cardIn .8s ease;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: scale(.8) translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+/* Emoji */
+
+.mainEmoji {
+    font-size: 70px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(5deg);
+    }
+}
+
+
+h1 {
+    font-size: 30px;
+    margin: 15px 0 10px;
+    color: #222;
+}
+
+p {
+    color: #777;
+    font-size: 17px;
+}
+
+
+/* Buttons */
+
+.buttons {
+    margin-top: 25px;
+}
+
+button {
+    border: none;
+    border-radius: 15px;
+    padding: 15px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 7px;
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+button:hover {
+    transform: scale(1.07);
+}
+
+.yes {
+    background: #20c997;
+    color: white;
+    box-shadow: 0 8px 20px rgba(32,201,151,.35);
+}
+
+.no {
+    background: #ff5b5b;
+    color: white;
+    position: relative;
+}
+
+
+/* Options */
+
+.option {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+
+    background: #f4f5f7;
+    color: #222;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+
+.option:hover,
+.option.selected {
+    background: #20c997;
+    color: white;
+}
+
+
+/* Hidden */
+
+.hidden {
+    display: none;
+}
+
+
+/* Step animation */
+
+.step {
+    animation: stepIn .5s ease;
+}
+
+@keyframes stepIn {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* Success */
+
+.successEmoji {
+    font-size: 75px;
+    animation: party 1s infinite;
+}
+
+@keyframes party {
+    0%,100% {
+        transform: rotate(-5deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(5deg) scale(1.1);
+    }
+}
+
+.successText {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #444;
+}
+
+.whatsapp {
+    background: #25D366;
+    color: white;
+    box-shadow: 0 8px 20px rgba(37,211,102,.35);
+}
+
+
+/* Falling confetti */
+
+.confetti {
+    position: fixed;
+    top: -30px;
+    font-size: 25px;
+    z-index: 100;
+    pointer-events: none;
+
+    animation:
+        fall linear forwards;
+}
+
+@keyframes fall {
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+        opacity: 0;
+    }
+
+}
+
+
+/* Floating hearts */
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    font-size: 25px;
+    pointer-events: none;
+    z-index: 5;
+
+    animation: heartFloat 4s linear forwards;
+}
+
+@keyframes heartFloat {
+
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-110vh)
+            translateX(var(--x))
+            scale(1.5);
+
+        opacity: 0;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="card">
+
+    <!-- STEP 1 -->
+
+    <div id="step1" class="step">
+
+        <div class="mainEmoji">🍽️</div>
+
+        <h1>Do vini për drekë nga unë?</h1>
+
+        <p>
+            Kam një pyetje shumë të rëndësishme...
+        </p>
+
+        <div class="buttons">
+
+            <button
+                class="yes"
+                onclick="goStep2()">
+                PO ❤️
+            </button>
+
+            <button
+                class="no"
+                id="noBtn">
+                JO 😢
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- STEP 2 -->
+
+    <div id="step2" class="step hidden">
+
+        <div class="mainEmoji">🥳</div>
+
+        <h1>Shkëlqyeshëm!</h1>
+
+        <p>
+            Zgjidhni ditën që ju përshtatet:
+        </p>
+
+        <button
+            class="option"
+            onclick="selectDay(this,'E Hënë')">
+            📅 E Hënë
+        </button>
+
+        <button
+            class="option"
+            onclick="selectDay(this,'E Martë')">
+            📅 E Martë
+        </button>
+
+        <button
+            class="option"
+            onclick="selectDay(this,'E Mërkurë')">
+            📅 E Mërkurë
+        </button>
+
+        <button
+            class="option"
+            onclick="selectDay(this,'E Enjte')">
+            📅 E Enjte
+        </button>
+
+        <button
+            class="option"
+            onclick="selectDay(this,'E Premte')">
+            📅 E Premte
+        </button>
+
+    </div>
+
+
+    <!-- STEP 3 -->
+
+    <div id="step3" class="step hidden">
+
+        <div class="mainEmoji">🤤</div>
+
+        <h1>Edhe një gjë...</h1>
+
+        <p>
+            Çfarë ushqimi preferoni?
+        </p>
+
+        <button
+            class="option"
+            onclick="selectFood(this,'Pizza 🍕')">
+            🍕 Pizza
+        </button>
+
+        <button
+            class="option"
+            onclick="selectFood(this,'Pasta 🍝')">
+            🍝 Pasta
+        </button>
+
+        <button
+            class="option"
+            onclick="selectFood(this,'Burger 🍔')">
+            🍔 Burger
+        </button>
+
+        <button
+            class="option"
+            onclick="selectFood(this,'Mish 🥩')">
+            🥩 Mish
+        </button>
+
+        <button
+            class="option"
+            onclick="selectFood(this,'Sushi 🍣')">
+            🍣 Sushi
+        </button>
+
+        <button
+            class="option"
+            onclick="selectFood(this,'Surprizë 😎')">
+            😎 Surprizë
+        </button>
+
+    </div>
+
+
+    <!-- STEP 4 -->
+
+    <div id="step4" class="step hidden">
+
+        <div class="successEmoji">
+            🎉
+        </div>
+
+        <h1>U krye! ❤️</h1>
+
+        <div
+            id="success"
+            class="successText">
+        </div>
+
+        <button
+            class="whatsapp"
+            onclick="sendWhatsApp()">
+            📱 Dërgo përgjigjen
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let selectedDay = "";
+let selectedFood = "";
+
+
+/* =========================
+   JO BUTTON
+========================= */
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+function moveNo() {
+
+    const maxX =
+        window.innerWidth -
+        noBtn.offsetWidth -
+        20;
+
+    const maxY =
+        window.innerHeight -
+        noBtn.offsetHeight -
+        20;
+
+    const x =
+        Math.max(
+            10,
+            Math.random() * maxX
+        );
+
+    const y =
+        Math.max(
+            10,
+            Math.random() * maxY
+        );
+
+    noBtn.style.position = "fixed";
+
+    noBtn.style.left =
+        x + "px";
+
+    noBtn.style.top =
+        y + "px";
+
+    noBtn.style.transform =
+        "rotate(" +
+        (Math.random() * 30 - 15) +
+        "deg)";
+}
+
+
+/* =========================
+   STEP 2
+========================= */
+
+function goStep2() {
+
+    createConfetti();
+
+    document
+        .getElementById("step1")
+        .classList.add("hidden");
+
+    document
+        .getElementById("step2")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================
+   DAY
+========================= */
+
+function selectDay(button, day) {
+
+    selectedDay = day;
+
+    document
+        .querySelectorAll("#step2 .option")
+        .forEach(btn =>
+            btn.classList.remove("selected")
+        );
+
+    button.classList.add("selected");
+
+    setTimeout(() => {
+
+        document
+            .getElementById("step2")
+            .classList.add("hidden");
+
+        document
+            .getElementById("step3")
+            .classList.remove("hidden");
+
+    }, 500);
+
+}
+
+
+/* =========================
+   FOOD
+========================= */
+
+function selectFood(button, food) {
+
+    selectedFood = food;
+
+    document
+        .querySelectorAll("#step3 .option")
+        .forEach(btn =>
+            btn.classList.remove("selected")
+        );
+
+    button.classList.add("selected");
+
+    setTimeout(() => {
+
+        document
+            .getElementById("step3")
+            .classList.add("hidden");
+
+        document
+            .getElementById("step4")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("success")
+            .innerHTML =
+
+            "Pra, shihemi <b>" +
+            selectedDay +
+            "</b> për <b>" +
+            selectedFood +
+            "</b>! ❤️<br><br>" +
+
+            "Tani më dërgo përgjigjen " +
+            "që ta organizojmë. 😎";
+
+        createConfetti();
+
+        createHearts();
+
+    }, 500);
+
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function sendWhatsApp() {
+
+    const phone =
+        "355697700233";
+
+    const message =
+        "Përshëndetje 😄\n\n" +
+
+        "E pranova ftesën për drekë! 🍽️\n\n" +
+
+        "📅 Dita: " +
+        selectedDay +
+
+        "\n🍴 Ushqimi: " +
+        selectedFood +
+
+        "\n\nShihemi! ❤️";
+
+    const url =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.location.href = url;
+
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+function createConfetti() {
+
+    const emojis = [
+        "🎉",
+        "🎊",
+        "❤️",
+        "🍕",
+        "🍝",
+        "🥳",
+        "✨",
+        "🍔"
+    ];
+
+    for (
+        let i = 0;
+        i < 35;
+        i++
+    ) {
+
+        const confetti =
+            document.createElement("div");
+
+        confetti.className =
+            "confetti";
+
+        confetti.innerText =
+            emojis[
+                Math.floor(
+                    Math.random() *
+                    emojis.length
+                )
+            ];
+
+        confetti.style.left =
+            Math.random() * 100 +
+            "vw";
+
+        confetti.style.animationDuration =
+            (2 + Math.random() * 3) +
+            "s";
+
+        confetti.style.animationDelay =
+            Math.random() * .8 +
+            "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+
+    }
+
+}
+
+
+/* =========================
+   HEARTS
+========================= */
+
+function createHearts() {
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💖",
+        "💗",
+        "💓"
+    ];
+
+    for (
+        let i = 0;
+        i < 15;
+        i++
+    ) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.className =
+            "heart";
+
+        heart.innerText =
+            hearts[
+                Math.floor(
+                    Math.random() *
+                    hearts.length
+                )
+            ];
+
+        heart.style.left =
+            Math.random() * 100 +
+            "vw";
+
+        heart.style.setProperty(
+            "--x",
+            (Math.random() * 200 - 100) +
+            "px"
+        );
+
+        heart.style.animationDelay =
+            Math.random() * 2 +
+            "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
